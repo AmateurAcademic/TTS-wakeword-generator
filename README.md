@@ -27,7 +27,7 @@ For picovoice you need to install:
 It's prety simple:
 1. `wakeword`: every TTS voice says the wakeword (ie 'hey Jarvis')
 2. `not-wakeword`: every TTS voice says the individual syllables of the wakeword (ie 'hey', 'jar', 'vis')
-3. `not-wakeword`: Every TTS voice says all of the syllable pairs of the wakeword (ie 'hey jar', 'Jarvis')
+3. `not-wakeword`: every TTS voice says all of the syllable pairs of the wakeword (ie 'hey jar', 'Jarvis')
 
 ### Hey, what's with the `random_TTS_mp3s.zip`?
 The `config/google-10000-english.txt` file has been used to generate additional `not-wakeword` samples using `util/TTS_random_popular_words_generator.py`, cutting off any words with less than 4 characters.
