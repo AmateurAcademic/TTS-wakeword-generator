@@ -19,7 +19,7 @@ For picovoice you need to install:
 ## Usage
 * Add your wakeword and the syllables of your wakeword to `config/TTS_config.json`
 * Run `python tts_wakeword_generator.py`
-* Unzip `data/random_TTS_mp3s.zip` and put the `random_TTS_mp3s` directory in `out/`
+* Unzip `data/random_TTS_mp3s.zip` and put the `random_TTS_mp3s` directory in `out/` directory
 * Run `python utils/convert_all_TTS_files.py`
 * The converted files are in `out/converted/`
 
