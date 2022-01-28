@@ -40,4 +40,4 @@ WARNING 1: If you run `util/TTS_random_popular_words_generator.py` yourself, it 
 
 WARNING 2: `config/google-10000-english.txt` is a list of the most popular words in English according to Google searches. This can include 'dirty and offensive words'. But do you really want your wakeword to wakeup when it hears something like a swear word?
 
-### Shout out to [JarbasAl](https://github.com/JarbasAl) and the whole [Open Voice OS](https://github.com/OpenVoiceOS/) crew!
+#### Shout out to [JarbasAl](https://github.com/JarbasAl) and the whole [Open Voice OS](https://github.com/OpenVoiceOS/) crew!
