@@ -1,14 +1,12 @@
 import json
 from basic_audio_operations_class import BasicAudioOperations
+from utils.config import load_config
 
-def load_config(config_file):
-    with open(config_file, 'r') as f:
-        config = json.load(f)
-    wakeword = config['wakeword']
-    syllables = config['syllables']
-    return wakeword, syllables
+config = load_config(config_file='./config/TTS_wakeword_config.json')
 
-WAKEWORD, SYLLABLES = load_config('./config/config.json')
+
+WAKEWORD = config['wakeword']
+SYLLABLES = config['syllables']
 WAKEWORD_DIR = WAKEWORD.replace(' ', '_')
 #TODO: add random text
 WAKEWORD_PATH = f'./out/{WAKEWORD_DIR}/TTS/wake-word/'

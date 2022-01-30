@@ -1,0 +1,170 @@
+{
+"larynx_host": "127.0.0.1:5002",
+"TTS_engines": [
+{
+    "plugin": "ovos-tts-plugin-mimic2",
+    "voice": null,
+    "output_type": "wav"
+},
+
+{
+    "plugin": "ovos-tts-plugin-google-tx",
+    "voice": null,
+    "output_type": "wav"
+},
+{
+    "plugin": "ovos-tts-plugin-pico",
+    "voice": null,
+    "output_type": "wav"
+},
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "AustralianFemale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "AustralianMale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "UKEnglishFemale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "UKEnglishMale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "USEnglishFemale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "USEnglishMale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "EnglishIndia",
+    "output_type": "mp3"
+},
+{
+    "plugin": "ovos-tts-plugin-responsivevoice",
+    "voice": "HindiMale",
+    "output_type": "mp3"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "mary_ann",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "northern_english_male",
+    "output_type":"wav"
+},
+
+{
+    "plugin":"neon-tts-plugin-larynx-server",
+    "voice": "harvard",
+    "output_type":"wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "blizzard_fls",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "blizzard_lessac",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "ljspeech",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_aew",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_ahw",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_aup",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_bld",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_clb",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_eey",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_fem",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_jmk",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_ksp",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "cmu_lnh",
+    "output_type": "wav"
+},
+
+{
+    "plugin": "neon-tts-plugin-larynx-server",
+    "voice": "ek",
+    "output_type": "wav"
+}
+]
+}
+

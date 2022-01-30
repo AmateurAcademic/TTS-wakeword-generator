@@ -1,12 +1,19 @@
 from ovos_plugin_manager.tts import load_tts_plugin
 from os import makedirs
+from utils.load_engine_config import load_engine_config
+import os.path
+import time
+
+engine_config = load_engine_config('config/TTS_engine_config.json')
+larynx_host = engine_config[0]
+TTS_list = engine_config[1]
 
 def load_popular_word_corpus(file_path):
     with open(file_path, 'r') as f:
         popular_words = f.read().splitlines()
     return popular_words
 
-RANDOM_COLLECTED_UTTERANCES_PATH = './out/random_longer_words/'
+RANDOM_COLLECTED_UTTERANCES_PATH = './out/random/'
 POPULAR_WORDS = load_popular_word_corpus('./config/google-10000-english.txt')
 
 
@@ -18,58 +25,26 @@ for utterance in POPULAR_WORDS:
 
 makedirs(RANDOM_COLLECTED_UTTERANCES_PATH, exist_ok=True)
 
-for plug, voice, ext in [
-    #("ovos-tts-plugin-mimic", None, "wav"),
-    #mimic and google commented out because they are done (well google blocked the API requests any further)
-    #("ovos-tts-plugin-mimic2", None, "wav"),
-    #("ovos-tts-plugin-google-tx", None, "wav"),
-   # ("ovos-tts-plugin-pico", None, "wav"),
-   #NOTE: Alice and Laura sound like the speak another langauge!
-    #("ovos-tts-plugin-responsivevoice", 'Alice', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'AustralianFemale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'AustralianMale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'Karen', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'Martin', "mp3"),
-    #("ovos-tts-plugin-responsivevoice", 'Laura', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'UKEnglishFemale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'UKEnglishMale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'USEnglishFemale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'USEnglishMale', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'EnglishUnitedKingdom', "mp3"),
-    ("ovos-tts-plugin-responsivevoice", 'EnglishIndia', "mp3")
-    # ("neon-tts-plugin-larynx-server", "mary_ann", "wav"),
-    # ("neon-tts-plugin-larynx-server", "southern_english_female", "wav"),
-    # ("neon-tts-plugin-larynx-server", "southern_english_male", "wav"),
-    # ("neon-tts-plugin-larynx-server", "scottish_english_male", "wav"),
-    # ("neon-tts-plugin-larynx-server", "northern_english_male", "wav"),
-    # ("neon-tts-plugin-larynx-server", "judy_bieber", "wav"),
-    # ("neon-tts-plugin-larynx-server", "harvard", "wav"),
-    # ("neon-tts-plugin-larynx-server", "blizzard_fls", "wav"),
-    # ("neon-tts-plugin-larynx-server", "blizzard_lessac", "wav"),
-    # ("neon-tts-plugin-larynx-server", "ljspeech", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_aew", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_ahw", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_aup", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_bdl", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_clb", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_eey", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_fem", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_jmk", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_ksp", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_ljm", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_lnh", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_rms", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_rxr", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_slp", "wav"),
-    # ("neon-tts-plugin-larynx-server", "cmu_slt", "wav"),
-    # ("neon-tts-plugin-larynx-server", "ek", "wav"),
-    # ("neon-tts-plugin-larynx-server", "kathleen", "wav")
-    ]:
+for plug, voice, ext in TTS_list:
     engine = load_tts_plugin(plug)
     if not engine:
         continue
+    
+    config_others = {
+        "voice": voice
+        }
 
-    tts = engine(lang="en-us", config={"voice": voice})
+    config_larynx = {
+        "host": larynx_host,
+        "voice": voice,
+        "vocoder": "hifi_gan/universal_large",
+    }
+
+    if plug is "neon-tts-plugin-larynx-server":
+        tts = engine(lang="en-us", config=config_larynx)
+    else:
+        tts = engine(lang="en-us", config=config_others)
+#TODO: refactor code here to use the same code as TTS_wakeword_data_generator.py
     if tts.voice:
         voice = voice or tts.voice.replace("/", "")
     if voice:
@@ -78,5 +53,22 @@ for plug, voice, ext in [
         slug = f"{plug}.{ext}"
 
     for utterance in longer_popular_words:
-        tts.get_tts(utterance, RANDOM_COLLECTED_UTTERANCES_PATH + utterance + '_' + slug)
-        tts.playback.stop()
+        path = RANDOM_COLLECTED_UTTERANCES_PATH + utterance + '_' + slug
+        if not os.path.isfile(path):
+            try:
+                tts.get_tts(utterance, path)
+                tts.playback.stop()
+            except:
+                #NOTE: Sometimes the TTS engine times out, so it will try again... This usually works unless there is something wrong with the TTS engine/server
+                print(
+                    f'{utterance} failed to be TTSed with {plug} on {voice} \n Waiting for a minute then trying again')
+                time.sleep(60)
+                try:
+                    tts.get_tts(utterance, path)
+                    tts.playback.stop()
+                except:
+                    print(
+                        f'{utterance} STILL failed to be TTSed with {plug} on {voice} \n Check your settings and run the script again')
+                    pass
+        elif os.path.isfile(path):
+            print(f"{path} already exists")
