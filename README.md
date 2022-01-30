@@ -16,8 +16,11 @@ For picovoice you need to install:
 
 `sudo apt-get install libttspico-utils`
 
+For Larynx, you may want to [setup your own server](https://github.com/rhasspy/larynx) and configure the `larynx_host` in `config/TTS_engine_config.json` to the server's IP address and port number.
+
 ## Usage
 * Add your wakeword and the syllables of your wakeword to `config/TTS_config.json`
+* Edit the `config/TTS_engine_config.json` for the TTS engines and voices you would like to use
 * Run `python tts_wakeword_generator.py`
 * Unzip `data/random_TTS_mp3s.zip` and put the `random_TTS_mp3s` directory in `out/` directory
 * Run `python utils/convert_all_TTS_files.py`
