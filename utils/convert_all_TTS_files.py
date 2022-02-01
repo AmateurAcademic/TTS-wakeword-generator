@@ -1,6 +1,6 @@
 import json
 from basic_audio_operations_class import BasicAudioOperations
-from utils.config import load_config
+from config import load_config
 
 config = load_config(config_file='./config/TTS_wakeword_config.json')
 

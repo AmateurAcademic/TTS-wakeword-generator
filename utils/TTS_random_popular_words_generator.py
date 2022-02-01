@@ -1,6 +1,6 @@
 from ovos_plugin_manager.tts import load_tts_plugin
 from os import makedirs
-from utils.load_engine_config import load_engine_config
+from load_engine_config import load_engine_config
 import os.path
 import time
 
