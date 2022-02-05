@@ -1,4 +1,4 @@
-from config import load_config
+from utils.config import load_config
 
 def load_engine_config(TTS_engine_config_file):
     TTS_engine_config = load_config(TTS_engine_config_file)

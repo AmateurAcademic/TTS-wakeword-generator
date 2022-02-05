@@ -100,7 +100,7 @@ for plug, voice, ext in TTS_list:
         "vocoder": "hifi_gan/universal_large",
     }
 
-    if plug is "neon-tts-plugin-larynx-server":
+    if "larynx" in plug:
         tts = engine(lang="en-us", config=config_larynx)
     else:
         tts = engine(lang="en-us", config=config_others)

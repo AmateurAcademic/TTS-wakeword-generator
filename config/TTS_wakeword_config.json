@@ -1,8 +1,9 @@
 {
-    "wakeword": "hey jarvis",
+    "wakeword": "hey what ever",
     "syllables": [
         "hey",
-        "jar",
-        "vis"
+        "what",
+        "ev",
+        "er"
     ]
 }
