@@ -1,5 +1,5 @@
 {
-"larynx_host": "http://127.0.0.1:5002",
+"larynx_host": null,
 "TTS_engines": [
 {
     "plugin": "ovos-tts-plugin-mimic2",

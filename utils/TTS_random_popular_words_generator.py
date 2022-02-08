@@ -34,11 +34,17 @@ for plug, voice, ext in TTS_list:
         "voice": voice
         }
 
-    config_larynx = {
-        "host": larynx_host,
-        "voice": voice,
-        "vocoder": "hifi_gan/universal_large",
-    }
+    if larynx_host is None:
+        config_larynx = {
+            "voice": voice,
+            "vocoder": "hifi_gan/universal_large",
+        }
+    else:
+        config_larynx = {
+            "host": larynx_host,
+            "voice": voice,
+            "vocoder": "hifi_gan/universal_large",
+        }
 
     if "larynx" in plug:
         tts = engine(lang="en-us", config=config_larynx)
