@@ -16,7 +16,7 @@ For picovoice you need to install:
 
 `sudo apt-get install libttspico-utils`
 
-For Larynx, you may want to [setup your own server](https://github.com/rhasspy/larynx) and configure the `larynx_host` in `config/TTS_engine_config.json` to the server's IP address and port number. You can also leave it as `null` and it will use the default server (Neon).
+For Larynx, you may want to [setup your own server](https://github.com/rhasspy/larynx) and configure the `larynx_host` in `config/TTS_engine_config.json` to the server's IP address and port number (ie https://127.0.0.1:5002). You can also leave it as `null` and it will use the default server (Neon).
 
 ## Usage
 * Add your wakeword and the syllables of your wakeword to `config/TTS_wakeword_config.json`
