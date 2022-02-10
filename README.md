@@ -33,11 +33,11 @@ It's prety simple:
 3. `not-wakeword`: every TTS voice says all of the syllable pairs of the wakeword (ie 'hey jar', 'Jarvis')
 
 ### Hey, what's with the `random_TTS_mp3s.zip`?
-The `config/google-10000-english.txt` file has been used to generate additional `not-wakeword` samples using `util/TTS_random_popular_words_generator.py`, cutting off any words with less than 4 characters.
+The `config/google-10000-english.txt` file has been used to generate additional `not-wakeword` samples using `TTS_words_generator.py`, cutting off any words with less than 4 characters.
 
 It takes a long time to generate all of the samples, so you can use the pre-generated files in `data/random_TTS_mp3s.zip`.
 
-These files are great for `not-wakeword` samples. So if you are incrementally training a wakeword model for the `not-wakeword` class, you can use these files as a starting point. 
+These files are great for `not-wakeword` samples. So if you are incrementally training a wakeword model for the `not-wakeword` class, you can use these files as a starting point to test for false wake ups and add the audio that fails into your data set. :)
 
 WARNING: `config/google-10000-english.txt` is a list of the most popular words in English according to Google searches. This can include 'dirty and offensive words'. But do you really want your wakeword to wakeup when it hears something like a swear word?
 
