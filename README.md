@@ -16,15 +16,15 @@ For picovoice you need to install:
 
 `sudo apt-get install libttspico-utils`
 
-For Larynx, you may want to [setup your own server](https://github.com/rhasspy/larynx) and configure the `larynx_host` in `config/TTS_engine_config.json` to the server's IP address and port number.
+For Larynx, you may want to [setup your own server](https://github.com/rhasspy/larynx) and configure the `larynx_host` in `config/TTS_engine_config.json` to the server's IP address and port number. You can also leave it as `null` and it will use the default server (Neon).
 
 ## Usage
 * Add your wakeword and the syllables of your wakeword to `config/TTS_wakeword_config.json`
 * Edit the `config/TTS_engine_config.json` for the TTS engines and voices you would like to use
-* Run `python tts_wakeword_generator.py`
-* Unzip `data/random_TTS_mp3s.zip` and put the `random_TTS_mp3s` directory in `out/` directory
-* Run `python utils/convert_all_TTS_files.py`
-* The converted files are in `out/converted/`
+* Run `python TTS_wakeword_generator.py` (you can edit the name of the sub directory it creates in `out/` in this file with `wakeword_model_name`
+* (OPTIONAL) Run `python TTS_words_generator.py` if you want to scrape a bunch of random popular words (for EN-US this is already in the `data/` directory so you don't have to) WARNING: This can take a very long time to complete and should only be performed if you require another language, I wouldn't recommend doing it for more than 3 or 4 voices as it takes so long!
+* Unzip `random_TTS_mp3s.zip` to the `out/` directory and run `python convert_prescraped_data.py`
+* All of the converted files are in `out/converted/`
 
 # How does it work?
 It's prety simple:
@@ -39,8 +39,6 @@ It takes a long time to generate all of the samples, so you can use the pre-gene
 
 These files are great for `not-wakeword` samples. So if you are incrementally training a wakeword model for the `not-wakeword` class, you can use these files as a starting point. 
 
-WARNING 1: If you run `util/TTS_random_popular_words_generator.py` yourself, it could take a very long time to generate all of the samples.
-
-WARNING 2: `config/google-10000-english.txt` is a list of the most popular words in English according to Google searches. This can include 'dirty and offensive words'. But do you really want your wakeword to wakeup when it hears something like a swear word?
+WARNING: `config/google-10000-english.txt` is a list of the most popular words in English according to Google searches. This can include 'dirty and offensive words'. But do you really want your wakeword to wakeup when it hears something like a swear word?
 
 #### Shout out to [JarbasAl](https://github.com/JarbasAl) and the whole [OpenVoiceOS](https://github.com/OpenVoiceOS/) crew!
