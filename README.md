@@ -23,7 +23,7 @@ For Larynx, you may want to [setup your own server](https://github.com/rhasspy/l
 * Edit the `config/TTS_engine_config.json` for the TTS engines and voices you would like to use
 * Run `python TTS_wakeword_generator.py` (you can edit the name of the sub directory it creates in `out/` in this file with `wakeword_model_name`
 * (OPTIONAL) Run `python TTS_words_generator.py` if you want to scrape a bunch of random popular words (for EN-US this is already in the `data/` directory so you don't have to) WARNING: This can take a very long time to complete and should only be performed if you require another language, I wouldn't recommend doing it for more than 3 or 4 voices as it takes so long!
-* If you want to use the default random TTS data instead of generating your own: Unzip `random_TTS_mp3s.zip` to the `out/` directory and run `python convert_prescraped_data.py` (NOTE: I will automate this step with this [git issue](https://github.com/AmateurAcademic/TTS-wakeword-generator/issues/5)
+* If you want to use the default random TTS data instead of generating your own: Unzip `random_TTS_mp3s.zip` to the `out/` directory and run `python convert_prescraped_data.py` (NOTE: I will automate this step with this [git issue](https://github.com/AmateurAcademic/TTS-wakeword-generator/issues/5))
 * All of the converted files are in `out/converted/`
 
 # How does it work?
