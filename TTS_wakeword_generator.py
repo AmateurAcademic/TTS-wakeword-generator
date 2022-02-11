@@ -1,13 +1,11 @@
-from utils.TTS_generator_class import TTSGenerator
-
-
 from os import makedirs
+
+from utils.TTS_generator_class import TTSGenerator
 
 TTS_generator_instance = TTSGenerator()
 
 TTS_utterances, WAKEWORD_PATH, NOT_WAKEWORD_PATH = TTS_generator_instance.load_wakeword_config(
-    wakeword_model_name="test_model_name")
-
+    wakeword_model_name="model_name")
 
 makedirs(WAKEWORD_PATH, exist_ok=True)
 makedirs(NOT_WAKEWORD_PATH, exist_ok=True)

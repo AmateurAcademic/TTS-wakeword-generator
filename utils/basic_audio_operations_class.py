@@ -37,6 +37,7 @@ class BasicAudioOperations:
     @staticmethod
     def convert_mp3s_in_directory_to_wavs(
         source_directory, destination_directory):
+        '''converts all mp3 files in source_directory to wav files in destination_directory and will make the destination_directory if it does not exist'''
         files = BasicFileOperations.get_files(source_directory)
         BasicFileOperations.make_directory(destination_directory)
         if all(file.endswith('.wav') for file in files):

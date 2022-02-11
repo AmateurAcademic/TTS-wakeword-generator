@@ -1,10 +1,10 @@
-from utils.TTS_generator_class import TTSGenerator
-
 import os
+
+from utils.TTS_generator_class import TTSGenerator
 
 TTS_generator_instance = TTSGenerator()
 
-corpus_file_path = os.getcwd() + '/config/test.txt'
+corpus_file_path = os.getcwd() + '/config/google-10000-english.txt'
 
 word_corpus = TTS_generator_instance.load_word_corpus(
     file_path=corpus_file_path, min_word_length_limit=4)

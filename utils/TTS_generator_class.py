@@ -1,22 +1,20 @@
-from ovos_plugin_manager.tts import load_tts_plugin
-
-
-from utils.basic_file_operations_class import BasicFileOperations
-from utils.basic_audio_operations_class import BasicAudioOperations
-
-
 import os.path
 from os import makedirs
 import time
 import json
 
+from ovos_plugin_manager.tts import load_tts_plugin
+
+from utils.basic_audio_operations_class import BasicAudioOperations
 
 class TTSGenerator:
+    '''Scrape a bunch of TTS voices for data collection'''
     def __init__(self):
         def load_config(config_file):
             with open(config_file, 'r') as file:
                 config = json.load(file)
             return config
+
         def load_engine_config(TTS_engine_config_file):
             TTS_engine_config = load_config(TTS_engine_config_file)
             larynx_host = TTS_engine_config['larynx_host']
@@ -44,18 +42,19 @@ class TTSGenerator:
         self.TTS_utterances = None
 
     def load_wakeword_config(self, wakeword_model_name):
+        '''Load the wakeword config file, get the paths to the output directories, and permutate all of the syllables of your wakeword'''
         def load_config(config_file):
             with open(config_file, 'r') as file:
                 config = json.load(file)
             return config
-        
+
         wakeword_config = load_config(
             os.getcwd() + '/config/TTS_wakeword_config.json')
         WAKEWORD = wakeword_config['wakeword']
         SYLLABLES = wakeword_config['syllables']
         self.WAKEWORD_PATH = f'./out/{wakeword_model_name}/wake-word/TTS/'
         self.NOT_WAKEWORD_PATH = f'./out/{wakeword_model_name}/not-wake-word/TTS/parts/'
-        
+
         def permutate_syllables(SYLLABLES, WAKEWORD):
             permutated_syllables = []
             number_of_syllables = len(SYLLABLES)
@@ -79,10 +78,10 @@ class TTSGenerator:
 
         return self.TTS_utterances, self.WAKEWORD_PATH, self.NOT_WAKEWORD_PATH
 
-
     @staticmethod
     def load_word_corpus(
         file_path, min_word_length_limit=None):
+        '''Load the word corpus and return a list of words, there can be a minimum length limit on words'''
         with open(file_path, 'r') as f:
                 word_corpus = f.read().splitlines()
 
@@ -100,19 +99,20 @@ class TTSGenerator:
         return word_corpus
 
     def load_TTS_engine(self, plugin, output_type, voice=None):
+        '''Load the TTS engine, configures it, and return the engine object'''
         TTS_engine = load_tts_plugin(
         plugin)
 
         config_others = {
             "voice": voice,
         }
-        
+
 
         if self.larynx_host is None:
-                config_larynx = {
+            config_larynx = {
                     "voice": voice,
                     "vocoder": "hifi_gan/universal_large",
-                }
+            }
         else:
             config_larynx = {
                 "host": self.larynx_host,
@@ -136,6 +136,7 @@ class TTSGenerator:
 
     def make_wakeword_collection_path(
         self, utterance, slug):
+        '''Make the paths to the output directory for the wakeword and not-wakeword'''
         wakeword = self.TTS_utterances[0]
         all_syllables = self.TTS_utterances[1:]
         if utterance is wakeword:
@@ -146,15 +147,14 @@ class TTSGenerator:
             file_path = self.NOT_WAKEWORD_PATH + file_name
         return file_path
 
-
     def make_corpus_collection_path(self, utterance, slug):
+        '''Make the path to the output directory for the corpus'''
         file_name =  utterance.replace(' ', '_') + '-' + slug
-        RANDOM_COLLECTED_UTTERANCES_PATH = './out/random-tmp/'
+        RANDOM_COLLECTED_UTTERANCES_PATH = './out/random/'
         makedirs(RANDOM_COLLECTED_UTTERANCES_PATH, exist_ok=True)
-        
+
         return RANDOM_COLLECTED_UTTERANCES_PATH + file_name
 
-    
     def get_TTS_audio(
         self, utterance, file_path, tts, slug):
         '''Uses the loaded TTS engine to get the audio of the utterance. Sometimes the TTS engine times out, so it will try again... This usually works unless there is something wrong with the TTS engine/server'''
@@ -176,7 +176,6 @@ class TTSGenerator:
         elif os.path.isfile(file_path):
             print(f"{file_path} already exists")
 
-
     def scrape_tts_engines(
         self, utterances, wakeword_scraping):
         '''Scrapes the TTS engines from the TTS_engine_config.json file for all utterances'''
@@ -191,9 +190,6 @@ class TTSGenerator:
                     file_path = self.make_corpus_collection_path(utterance, slug)
                 self.get_TTS_audio(utterance, file_path, tts, slug)
                 print(f'Scraped TTS {slug} for utterance {utterance}')
-
-
-    #TODO: add a function to convert all mp3s to wavs and all wavs into correct sample rate
 
     def convert_audio_files(
         self, source_directory, destination_directory):
