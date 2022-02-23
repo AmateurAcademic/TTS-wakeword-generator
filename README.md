@@ -5,7 +5,7 @@ Use several TTS engines to produce a collection of wakeword (and not wakeword) s
 Collecting wakeword samples is a very common task in voice applications, but it is not always fun to do it manually. This tool helps you to generate a collection of samples for your wakeword. 
 
 ## NOTE
-In a future release, this will be integrated into the [Precise Wakeword Model Maker](https://github.com/secretsauceai/precise-wakeword-model-maker).
+This has been integrated into the [Precise Wakeword Model Maker](https://github.com/secretsauceai/precise-wakeword-model-maker).
 
 ## Installation
 `pip install -r requirements.txt`
